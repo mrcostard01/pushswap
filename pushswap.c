@@ -6,7 +6,7 @@
 /*   By: wipion <wipion@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 21:33:07 by wipion            #+#    #+#             */
-/*   Updated: 2025/12/14 22:27:30 by wipion           ###   ########.fr       */
+/*   Updated: 2025/12/14 22:59:44 by wipion           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,26 @@ int get_command(char *str)
 		i++;
 	}
 }
-
+int     swap_a()
+{
+    
+}
 void	*call_flag(void)
 {
 	t_flag	*root;
 
-	root = init_flag("", &ft_printf_char);
-	add_flag(root, "sa", &ft_printf_integer);
-	add_flag(root, "sb", &ft_printf_integer);
-	add_flag(root, "ss", &ft_printf_string);
-	add_flag(root, "pa", &ft_printf_hexadecimallow);
-	add_flag(root, "pb", &ft_printf_hexadecimalup);
-	add_flag(root, "ra", &ft_printf_pointer);
-	add_flag(root, "rb", &ft_printf_unsigned_int);
-	add_flag(root, "rr", &ft_printf_percent);
-    add_flag(root, "rra", &ft_printf_percent);
-	add_flag(root, "rrb", &ft_printf_percent);
-    add_flag(root, "rrr", &ft_printf_percent);
+	root = init_flag("", &);
+	add_flag(root, "sa", &);
+	add_flag(root, "sb", &);
+	add_flag(root, "ss", &);
+	add_flag(root, "pa", &);
+	add_flag(root, "pb", &);
+	add_flag(root, "ra", &);
+	add_flag(root, "rb", &);
+	add_flag(root, "rr", &);
+    add_flag(root, "rra", &);
+	add_flag(root, "rrb", &);
+    add_flag(root, "rrr", &);
     return (root);
 }
 void    pushswap()
