@@ -6,17 +6,19 @@
 /*   By: wipion <wipion@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 20:34:26 by wipion            #+#    #+#             */
-/*   Updated: 2026/01/11 20:57:51 by wipion           ###   ########.fr       */
+/*   Updated: 2026/01/18 15:21:58 by wipion           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-t_list  *createlist (void)
+t_list  *createlist (int number, int index)
 {
     t_list *root = malloc(sizeof(*root));
     if (root != NULL)
     {
+        root->number = number;
+        root->index = index;
         root->prev = root;
         root->next = root;
     }

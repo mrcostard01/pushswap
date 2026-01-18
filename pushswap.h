@@ -6,7 +6,7 @@
 /*   By: wipion <wipion@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 18:34:17 by wipion            #+#    #+#             */
-/*   Updated: 2026/01/11 21:27:01 by wipion           ###   ########.fr       */
+/*   Updated: 2026/01/18 14:59:33 by wipion           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_list
     struct s_list   *next;
 } t_list;
 
-t_list  *createlist (void);
+t_list  *createlist (int number, int index);
 void addbefore (t_list *element, int number, int index);
 void addafter (t_list *element, int number, int index);
 void deleteelement (t_list *element);
