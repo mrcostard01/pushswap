@@ -74,7 +74,7 @@ int *checkstring(char *str)
         j = 0;
         k = 0;
         len = 0;
-        if (!str || str[0] == '\0')
+        if (!str || str[0] == 'l')
             return (NULL);
         i = 0;
         num = ft_split(str, ' ');
@@ -126,7 +126,6 @@ int     main(int ac, char **av)
     int *fakelist;
     t_list  *tmp;
     int    j;
-    int     *stackb;
     char    *str;
     char    *str2;
     t_list  *startnode;
@@ -145,7 +144,6 @@ int     main(int ac, char **av)
         write(2, "Error\n", 6);
         return (-1);
     }
-
     str = malloc(sizeof(char) * 100);
     if (!str)
     {
@@ -161,11 +159,10 @@ int     main(int ac, char **av)
             ft_strlcat(str, " ", len);
             i++;
         }
-	
-        //printf("%s\n", str);
         str2 = ft_strdup(str);
         reallist = checkstring(str);
         fakelist = checkstring(str2);
+        free(str);
     }
     else
     {
@@ -198,7 +195,6 @@ int     main(int ac, char **av)
         i++;
     startnode = createlist(fakelist[0], i);
     tmp = startnode;
-    //startnode=startnode->next;
     i = 1;
     while (i < len && startnode->next != NULL)
     {
@@ -209,22 +205,27 @@ int     main(int ac, char **av)
         startnode=startnode->next;
         i++;
     }
-    i = 0;
     j = 0;
     startnode= tmp;
-    stackb = malloc(sizeof(int) * len);
-    while (startnode != NULL)
+    while (j < len)
     {
-            if (startnode->index == i)
+            if (startnode->index == j)
             {
-                stackb[i] = startnode->number;
                 write(1, "pb\n",3);
+                //deleteelement(startnode);
+                j++;
             }
             else {
-                write (1, "ra\n", 3);
-                i++;
+                if (startnode->next->index != j || j == 0)
+                    write (1, "ra\n", 3);
+                startnode=startnode->next;
             }
-            startnode=startnode->next;
+    }
+    i = 0;
+    while (i < len)
+    {
+        write(1, "rb\n", 3);
+        i++;
     }
     i = 0;
     while (i < len)
@@ -232,14 +233,14 @@ int     main(int ac, char **av)
         write(1, "pa\n", 3);
         i++;
     }
-    i = 0;
-    /*i = len;
-    while (i > 0)
+    /*i = 0;
+    startnode = tmp;
+    while (i < len)
     {
-        printf("%i\n", startnode->number);
+        printf("%i : %i\n",i,stackb[i]);
+        //printf("%i : %i\n", startnode->index, startnode->number);
         startnode=startnode->next;
-        i--;
+        i++;
     }*/
     free(reallist);
-    //free(fakelist);
 }

@@ -16,8 +16,8 @@ static int	ft_char_in_list(char c, char const *list)
 	int	i;
 
 	i = 0;
-	if (!list)
-		return (0);
+	/*if (!list)
+		return (0);*/
 	while (list[i] != '\0')
 	{
 		if (list[i] == c)
