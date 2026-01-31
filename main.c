@@ -38,7 +38,22 @@ int	ft_atol(const char *str)
 		return (nbr * -1);
 	return (nbr);
 }
+static int checklength(t_list *root, int next_index, int mod)
+{
+    int     i;
 
+    t_list *elem;
+    elem = (mod == 0) ? root->prev : root->next;
+    i = 1;
+    while (elem != root) {
+        if (elem->index == next_index) {
+            return (i);
+        }
+        elem = (mod == 0) ? elem->prev : elem->next;
+        i++;
+    }
+    return (i);
+}
 int checkduplicate(int *tab /*, int len*/)
 {
     int i;
@@ -131,6 +146,7 @@ int     main(int ac, char **av)
     t_list  *startnode;
     int len;
     int i;
+
     i = 1;
     j = 0;
     len = 1;
@@ -217,75 +233,74 @@ int     main(int ac, char **av)
     startnode = createlist(fakelist[0], i);
     tmp = startnode;
     i = 1;
+    //Insère les éléments et les index dans la liste
     while (i < len && startnode->next != NULL)
     {
         j = 0;
         while (fakelist[i] != reallist[j])
             j++;
-        /*if (j== 2)
-            j--;*/
-        //printf("%i\n",j);
         addafter(startnode,fakelist[i], j);
         startnode=startnode->next;
         i++;
     }
     i=0;
     j = 0;
-    //deleteelement(startnode);
     startnode = tmp;
-    /*while (i < len)
-    {
-        //printf("%i : %i\n",i,stackb[i]);
-        printf("%i: %i\n", startnode->index, startnode->number);
-        startnode=startnode->next;
-        i++;
-    }*/
-    //printf("%i\n", startnode->next->index);
     tmp = startnode->next;
+    int min;
+    int max;
+    int old_len;
+    int nb_rotate = 0;
+    old_len = len;
+    int index_to_search;
     while (j < len)
     {
-            if (startnode->prev->index == j && startnode->index != j)
-            {
-                 write(1, "rra\n",4);
-                 //write(1, "pb\n",3);
-                 //startnode = startnode->next;
-            }
-            /*if (startnode->next->index == j && startnode->index == j)
-            {
-                 write(1, "sa\n",3);
-                 //startnode = startnode->next;
-            }*/
+            tmp = startnode;
             if (startnode->index == j)
             {
                 write(1, "pb\n",3);
-                //deleteelement(startnode);
-                //startnode = startnode->next;
+                tmp = startnode->next;
+                deleteelement(startnode);
+                startnode = tmp;
                 j++;
             }
-            else {
-                if (startnode->next->index != j || j == 0)
-                    write (1, "ra\n", 3);
-                startnode = startnode->next;
+            else if (startnode->index == (len-1)) {
+                write(1, "pb\n",3);
+                write(1, "rb\n",3);
+                nb_rotate++;
+                tmp = startnode->next;
+                deleteelement(startnode);
+                startnode = tmp;
+                len--;
             }
-            /*if (startnode->index == j)
-            {
-                 write(1, "sa\n",3);
-                 //startnode = startnode->next;
-            }*/
+            else {
+                //Si la distance prev < la distance next
+                min = (checklength(startnode, j ,1) < checklength(startnode, j, 0)) ? checklength(startnode, j ,1) : checklength(startnode, j, 0);
+                max = (checklength(startnode, (len-1) ,1) < checklength(startnode, (len - 1), 0)) ? checklength(startnode, (len-1) ,1) : checklength(startnode, (len - 1), 0);
+                index_to_search = min < max ? j : (len - 1);
+                if (checklength(startnode, index_to_search ,1) < checklength(startnode, index_to_search, 0))
+                {
+                    write (1, "ra\n", 3);
+                    startnode = startnode->next;
+                }
+                else {
+                    write (1, "rra\n", 4);
+                    startnode= startnode->prev;
+                }
+            }
     }
-    /*i = 0;
-    while (i < len)
-    {
-        write(1, "rb\n", 3);
-        i++;
-    }*/
+
     i = 0;
-    while (i < len)
+    while (i < old_len)
     {
         write(1, "pa\n", 3);
         i++;
     }
     i = 0;
+    while (i < nb_rotate) {
+        write(1, "ra\n", 3);
+        i++;
+    }
     startnode = tmp;
     /*while (i < len)
     {
